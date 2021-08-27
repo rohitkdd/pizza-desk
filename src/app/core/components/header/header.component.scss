@@ -8,6 +8,30 @@ header {
                     font-size: 24px;
                     color: red;
                 }
+                img {
+                    position: relative;
+                    top: -5px;
+                    left: 5%;
+                }
+            }
+
+            .nav-item {
+                .nav-link:hover {
+                    font-weight: 500;
+                }
+                &.active {
+                    .nav-link:hover {
+                        color: red !important;
+                    }
+                }
+            }
+
+            .dropdown-item:hover {
+                font-weight: 500;
+            }
+            .dropdown-item.active, .dropdown-item:active {
+                background: transparent !important;
+                color: #000;
             }
         }
     }

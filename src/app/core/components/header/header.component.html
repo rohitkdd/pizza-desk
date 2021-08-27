@@ -1,13 +1,80 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" routerLink="/"><strong>P</strong>izza<strong>D</strong>esk</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link" routerLink="/orders">Orders</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/"><strong>P</strong>izza<strong>D</strong>esk <img src="assets/icons/pizza.png"
+        alt="Pizza Desk"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-light mr-2" routerLink="/orders/place-order">Place Order!</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isUserLoggedIn">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Hi Admin
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/orders">Orders</a>
+            <a class="dropdown-item" routerLink="/orders/place-order">Place Order</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
-        </div>
-    </nav>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" data-toggle="modal" data-target="#loginModal" (click)="resetLoginForm()"
+            *ngIf="!isUserLoggedIn">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>
+
+<!-- Login Modal - start -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login to PizzaDesk</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #close>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginForm" (keyup.enter)="login()">
+          <div class="form-group row">
+            <label for="username" class="col-sm-2 col-form-label font-weight-bold">Username</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="username" placeholder="Username" formControlName="username">
+              <div *ngIf="isFormSubmitted && loginForm?.controls?.username?.errors">
+                <div class="form-error" *ngIf="loginForm?.controls?.username?.errors?.required">
+                  Please enter username to proceed.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label font-weight-bold">Password</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="password" placeholder="Password"
+                formControlName="password">
+              <div *ngIf="isFormSubmitted && loginForm?.controls?.password?.errors">
+                <div class="form-error" *ngIf="loginForm?.controls?.password?.errors?.required">
+                  Please enter password to proceed.
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <small class="text-muted">Only admin login is allowed.</small>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary font-weight-bold" (click)="login()">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Login Modal - end -->

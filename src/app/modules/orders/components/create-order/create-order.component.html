@@ -1,0 +1,81 @@
+<div class="create-order-wrapper">
+    <h3>Cook your Pizza!</h3>
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <form [formGroup]="orderForm">
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="pizzaFlavor">Flavor</label>
+                        <select id="pizzaFlavor" class="form-control" formControlName="flavor">
+                            <option value="" selected>Select your pizza</option>
+                            <option *ngFor="let flavor of flavors" [ngValue]="flavor">{{flavor}}</option>
+                        </select>
+                        <div *ngIf="isFormSubmitted && orderForm?.controls?.flavor?.errors">
+                            <div class="form-error" *ngIf="orderForm?.controls?.flavor?.errors?.required">Please select
+                                your pizza flavor.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="pizzaCrust">Crust</label>
+                        <select id="pizzaCrust" class="form-control" formControlName="crust">
+                            <option selected value="">Choose your crust</option>
+                            <option *ngFor="let crust of crusts" [ngValue]="crust">{{crust}}</option>
+                        </select>
+                        <div *ngIf="isFormSubmitted && orderForm?.controls?.crust?.errors">
+                            <div class="form-error" *ngIf="orderForm?.controls?.crust?.errors?.required">Please select
+                                your pizza crust.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Size</label>
+                    <div class="d-flex radio-boxes-container flex-md-row flex-column">
+                        <div class="custom-control custom-radio mr-4 mb-4 mb-md-0">
+                            <input type="radio" id="regular" class="custom-control-input" formControlName="pizzaSize"
+                                name="pizzaSize" value="R">
+                            <label class="custom-control-label" for="regular">Regular</label>
+                        </div>
+                        <div class="custom-control custom-radio mr-4 mb-4 mb-md-0">
+                            <input type="radio" id="medium" class="custom-control-input" formControlName="pizzaSize"
+                                name="pizzaSize" value="M">
+                            <label class="custom-control-label" for="medium">Medium</label>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="large" class="custom-control-input" formControlName="pizzaSize"
+                                name="pizzaSize" value="L">
+                            <label class="custom-control-label" for="large">Large</label>
+                        </div>
+                    </div>
+                    <div *ngIf="isFormSubmitted && orderForm?.controls?.pizzaSize?.errors">
+                        <div class="form-error" *ngIf="orderForm?.controls?.pizzaSize?.errors?.required">Please choose
+                            your pizza size.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="table">Table</label>
+                        <select id="table" class="form-control" formControlName="tableNumber">
+                            <option value="" selected>Select your table</option>
+                            <option *ngFor="let number of tableNumbers" [ngValue]="number">{{number}}</option>
+                        </select>
+
+                        <div *ngIf="isFormSubmitted && orderForm?.controls?.tableNumber?.errors">
+                            <div class="form-error" *ngIf="orderForm?.controls?.tableNumber?.errors?.required">Please
+                                select your table.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions mt-3">
+                    <button type="reset" class="btn btn-light btn-lg mr-2" (click)="resetForm()">Reset</button>
+                    <button type="submit" class="btn btn-success btn-lg" (click)="submitOrder()"
+                        [disabled]="isFormProcessing">Order</button>
+                </div>
+            </form>
+        </div>
+        <div class="chef col-md-4 col-sm-12"></div>
+    </div>
+</div>

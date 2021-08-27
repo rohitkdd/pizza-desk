@@ -1,0 +1,29 @@
+.create-order-wrapper {
+    padding: 50px;
+    margin-left: 20px;
+
+    form {
+        .form-group {
+            > label {
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }
+        
+        .actions {
+            button {
+                font-weight: 600;
+                font-size: 20px;
+            }
+        }
+    }
+
+}
+
+.chef {
+    background-image: url('/assets/images/pizza-chef.jpg');
+    background-repeat: no-repeat;
+    height: 600px;
+    background-position: 100% 0%;
+    background-size: 100%;
+}

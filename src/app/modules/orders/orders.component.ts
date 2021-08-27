@@ -8,6 +8,7 @@ import { OrderService } from 'src/app/shared/services/order.service';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  isLoading = false;
 
   constructor(private orderService: OrderService) { }
   orders: PizzaOrder[] = [];
@@ -17,26 +18,28 @@ export class OrdersComponent implements OnInit {
   }
 
   getPizzaOrders() {
+    this.isLoading = true;
     this.orderService.getPizzaOrders().subscribe((orders: PizzaOrder[]) => {
-      if (orders && orders.length) {
-        this.orders = orders;
-
-        this.orders.forEach((order)=> {
-          order.pizzaSize = Size[order.Size];
-        });
+      if (orders) {
+        if (orders.length) {
+          this.orders = orders;
+          this.isLoading = false;
+          this.orders.forEach((order) => {
+            order.pizzaSize = Size[order.Size];
+          });
+        } else {
+          this.isLoading = false;
+        }
       }
-    }, (error) => {
-      console.error(error);
     });
   }
 
   completeOrder(orderId: number) {
     this.orderService.completeOrder(orderId).subscribe((orderCompleted: any) => {
       if (orderCompleted && orderCompleted.message) {
+        this.orders = [];
         this.getPizzaOrders();
       }
-    }, (error) => {
-      console.error(error);
     });
   }
 

@@ -1,21 +1,33 @@
 <div class="orders-wrapper">
     <h3 class="ml-4 mt-2">Orders Placed</h3>
 
-    <div class="p-4 order-cards" *ngIf="orders?.length; else noDataAvailable">
-        <div class="card" *ngFor="let order of orders">
-            <img class="card-img-top" src="assets/images/pizza-thumbnail.jfif" alt="Pizza">
-            <div class="card-body">
-                <h4 class="card-title">{{order?.Flavor}} - {{order?.pizzaSize | uppercase}}</h4>
-                <p class="card-text">Crust: <span class="value">{{order?.Crust}}</span> </p>
-                <p class="card-text">Table no: <span class="value">{{order?.Table_No}}</span></p>
-                <p class="card-text">Order Date: <span class="value">{{order?.Timestamp | date: 'EEE, dd MMM yyyy'}}</span></p>
-                <a class="btn btn-success" (click)="completeOrder(order.Order_ID)">Complete Order</a>
+    <div class="p-4 order-cards">
+        <ng-container *ngIf="isLoading">
+            <div class="card loading">
+                <div class="card-img-top"></div>
+                <div class="card-body">
+                    <h4 class="card-title"> <span></span></h4>
+                    <p class="card-text"><span class="value"></span> </p>
+                    <p class="card-text"><span class="value"></span></p>
+                    <p class="card-text"><span class="value"></span></p>
+                </div>
             </div>
-        </div>
+        </ng-container>
+        <ng-container>
+            <div class="card" *ngFor="let order of orders">
+                <img class="card-img-top" src="assets/images/pizza-thumbnail.jfif" alt="Pizza">
+                <div class="card-body">
+                    <h4 class="card-title">{{order?.Flavor}} <span *ngIf="order?.pizzaSize">- {{order?.pizzaSize | uppercase}}</span></h4>
+                    <p class="card-text">Crust: <span class="value">{{order?.Crust}}</span> </p>
+                    <p class="card-text">Table no: <span class="value">{{order?.Table_No}}</span></p>
+                    <p class="card-text">Order Date: <span class="value">{{order?.Timestamp | date: 'EEE, MMM d, y, H:mm:ss a':'+0800'}}</span></p>
+                    <a class="btn btn-success" (click)="completeOrder(order.Order_ID)">Complete Order</a>
+                </div>
+            </div>
+        </ng-container>
     </div>
-    <ng-template #noDataAvailable>
-        No Orders available, prepare order.
-    </ng-template>
-    
-
+    <div *ngIf="!orders.length && !isLoading">
+        <h4 class="ml-4">No orders available, <a class="text-primary" routerLink="/orders/place-order">prepare order
+                now</a>.</h4>
+    </div>
 </div>

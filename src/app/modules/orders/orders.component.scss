@@ -7,6 +7,9 @@
         column-gap: 50px;
 
        .card {
+           min-height: 500px;
+           min-width: 357px;
+           background: #fff;
            img {
                 height: 290px;
                 object-fit: cover;
@@ -29,6 +32,30 @@
                    color: #fff;
                 }
            }
-       } 
+       }
+       
+       .card.loading {
+           .card-img-top, h4, .card-text {
+               background: #eee;
+               background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+               background-size: 200% 100%;
+               animation: 1.2s shine linear infinite;
+           }
+           .card-img-top {
+               height: 290px;
+           }
+           h4 {
+               height: 28px;
+           }
+           .card-text {
+               height: 30px;
+           }
+       }
+    }
+    
+}
+@keyframes shine {
+    from {
+        background-position-x: 200% ;
     }
 }

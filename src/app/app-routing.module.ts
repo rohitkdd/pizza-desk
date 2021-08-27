@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LayoutComponent } from './container/layout/layout.component';
 
 
 const routes: Routes = [
   {
-    path: 'home', loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+    path: '', component: LayoutComponent, children: [
+      { path: '', loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule), pathMatch: 'full' },
+      { path: 'orders', loadChildren: () => import('./modules/orders/orders.module').then(m => m.OrdersModule) }
+    ]
+  },
+  { 
+    path: '**', redirectTo: '' 
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '',
     pathMatch: 'full'
   },
-  { path: 'orders', loadChildren: () => import('./modules/orders/orders.module').then(m => m.OrdersModule) }
 ];
 
 @NgModule({
