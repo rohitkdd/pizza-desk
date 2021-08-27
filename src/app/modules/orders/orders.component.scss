@@ -13,21 +13,21 @@
            }
 
            .card-body {
-               .actions {
-                   display: flex;
-                   column-gap: 10px;
-                   .btn {
+               .card-text {
+                   font-size: 18px;
+                   font-weight: 500;
+
+                   .value {
                        font-weight: 600;
-                       color: #fff;
-                       padding: 12px 25px;
-                       text-transform: uppercase;
-                   }
-    
-                   .text-primary:hover {
-                       background-color: #f1f1f1c9;
-                       color: #007bff !important;
+                       font-size: 20px;
                    }
                }
+               .btn {
+                   font-weight: 600;
+                   padding: 12px 25px;
+                   text-transform: uppercase;
+                   color: #fff;
+                }
            }
        } 
     }
